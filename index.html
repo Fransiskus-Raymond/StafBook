@@ -162,6 +162,11 @@
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .hero-image:hover img {
+            transform: scale(1.03);
         }
         
         /* Integration Section */
@@ -247,6 +252,22 @@
             margin-bottom: 20px;
         }
         
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background-color: var(--light-gray);
+            color: var(--gray);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
         /* Dashboard Preview */
         .dashboard-preview {
             padding: 80px 0;
@@ -281,12 +302,44 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border);
+            position: relative;
         }
         
         .dashboard-image img {
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .dashboard-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(66, 133, 244, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .dashboard-image:hover .image-overlay {
+            opacity: 1;
+        }
+        
+        .overlay-text {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--primary);
         }
         
         /* CTA Section */
@@ -482,7 +535,7 @@
                 <a href="#integration" class="cta-button">Explore Integration</a>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="StafBook HR Platform Dashboard">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="StafBook HR Platform Team Collaboration">
             </div>
         </div>
     </section>
@@ -503,8 +556,9 @@
                     <h3>Infrastructure & Hosting</h3>
                     <p>Built on Google Kubernetes Engine (GKE) for elastic scalability and Compute Engine for reliable core HR processing. Our microservices architecture ensures high availability and performance.</p>
                     <div class="tech-tags">
-                        <span class="tag">GKE</span>
+                        <span class="tag">Google Kubernetes Engine</span>
                         <span class="tag">Compute Engine</span>
+                        <span class="tag">Microservices</span>
                     </div>
                 </div>
                 
@@ -517,7 +571,7 @@
                     <div class="tech-tags">
                         <span class="tag">Cloud SQL</span>
                         <span class="tag">Cloud Storage</span>
-                        <span class="tag">IAM</span>
+                        <span class="tag">IAM Security</span>
                     </div>
                 </div>
                 
@@ -530,7 +584,7 @@
                     <div class="tech-tags">
                         <span class="tag">Google Workspace</span>
                         <span class="tag">Gmail API</span>
-                        <span class="tag">Calendar API</span>
+                        <span class="tag">Calendar Sync</span>
                     </div>
                 </div>
                 
@@ -561,8 +615,11 @@
                 <a href="https://stafbook.tech/" target="_blank" class="cta-button">Try Live Demo</a>
             </div>
             <div class="dashboard-image">
-                <!-- 这里插入您提供的第二张图片 -->
-                <img src="main-hres.png" alt="StafBook HR Dashboard Preview">
+                <!-- 使用可靠的HR仪表板图片URL -->
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="StafBook HR Dashboard Preview">
+                <div class="image-overlay">
+                    <div class="overlay-text">StafBook HR Dashboard</div>
+                </div>
             </div>
         </div>
     </section>
@@ -688,6 +745,18 @@
             card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             observer.observe(card);
         });
+        
+        // Add hover effect to dashboard image
+        const dashboardImage = document.querySelector('.dashboard-image img');
+        if(dashboardImage) {
+            dashboardImage.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.03)';
+            });
+            
+            dashboardImage.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        }
     </script>
 </body>
 </html>
