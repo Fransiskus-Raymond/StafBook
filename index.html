@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StafBook HR Platform | Google Cloud Integration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        :root {
+            --primary: #4285F4;
+            --primary-dark: #3367D6;
+            --secondary: #34A853;
+            --accent: #EA4335;
+            --light: #F8F9FA;
+            --dark: #202124;
+            --gray: #5F6368;
+            --light-gray: #E8EAED;
+            --border: #DADCE0;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 28px;
+            background: white;
+            color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .logo-text p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .cta-button {
+            background-color: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #2d9248;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background-color: white;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-text h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        
+        .hero-text h2 span {
+            color: var(--primary);
+        }
+        
+        .hero-text p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Integration Section */
+        .integration {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .integration-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .integration-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .integration-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: white;
+        }
+        
+        .icon-1 {
+            background-color: var(--primary);
+        }
+        
+        .icon-2 {
+            background-color: var(--secondary);
+        }
+        
+        .icon-3 {
+            background-color: #FBBC05;
+        }
+        
+        .icon-4 {
+            background-color: var(--accent);
+        }
+        
+        .integration-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .integration-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        /* Dashboard Preview */
+        .dashboard-preview {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .dashboard-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .dashboard-text {
+            flex: 1;
+        }
+        
+        .dashboard-text h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .dashboard-text p {
+            font-size: 17px;
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+        
+        .dashboard-image {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+        
+        .dashboard-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button-outline {
+            background-color: transparent;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid white;
+            transition: all 0.3s;
+        }
+        
+        .cta-button-outline:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo-icon {
+            font-size: 24px;
+            background: white;
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .footer-logo-text h3 {
+            font-size: 20px;
+        }
+        
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #B0B7C3;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #B0B7C3;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #3C4043;
+            color: #9AA0A6;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-content, .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .hero-text h2 {
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero-text h2 {
+                font-size: 32px;
+            }
+            
+            .section-title h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-icon">SB</div>
+                    <div class="logo-text">
+                        <h1>StafBook</h1>
+                        <p>People-First HR Partner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#solution">Solution</a>
+                <a href="#integration">Integration</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <a href="https://stafbook.tech/" target="_blank" class="cta-button">Visit Our Website</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h2>StafBook HR Platform <span>Powered by Google Cloud</span></h2>
+                <p>StafBook is a People-First HR Partner that helps businesses simplify HR and empower leaders to build engaged and high-performing teams. Our platform integrates seamlessly with Google Cloud to deliver scalable, secure, and intelligent HR solutions.</p>
+                <p>From onboarding and attendance to payroll and offboarding, StafBook makes HR easy to manage while fostering a winning organizational culture with best-practice frameworks and automated tools.</p>
+                <a href="#integration" class="cta-button">Explore Integration</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="StafBook HR Platform Dashboard">
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Section -->
+    <section class="integration" id="integration">
+        <div class="container">
+            <div class="section-title">
+                <h2>Google Cloud Integration</h2>
+                <p>StafBook leverages Google Cloud's powerful infrastructure and services to deliver a secure, scalable, and intelligent HR platform.</p>
+            </div>
+            
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <div class="integration-icon icon-1">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Infrastructure & Hosting</h3>
+                    <p>Built on Google Kubernetes Engine (GKE) for elastic scalability and Compute Engine for reliable core HR processing. Our microservices architecture ensures high availability and performance.</p>
+                    <div class="tech-tags">
+                        <span class="tag">GKE</span>
+                        <span class="tag">Compute Engine</span>
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon icon-2">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Data Security & Storage</h3>
+                    <p>Employee and payroll data stored in Cloud SQL (PostgreSQL) with automatic encryption. Documents secured in Cloud Storage with fine-grained IAM controls for maximum security.</p>
+                    <div class="tech-tags">
+                        <span class="tag">Cloud SQL</span>
+                        <span class="tag">Cloud Storage</span>
+                        <span class="tag">IAM</span>
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon icon-3">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Workspace Integration</h3>
+                    <p>Seamless SSO via Google Workspace accounts. Automatic calendar sync for leave management. HR notifications delivered via Gmail and Workspace APIs for better collaboration.</p>
+                    <div class="tech-tags">
+                        <span class="tag">Google Workspace</span>
+                        <span class="tag">Gmail API</span>
+                        <span class="tag">Calendar API</span>
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon icon-4">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Analytics & AI</h3>
+                    <p>BigQuery powers advanced workforce analytics and reporting. Planning to leverage Vertex AI for intelligent talent matching and attrition prediction.</p>
+                    <div class="tech-tags">
+                        <span class="tag">BigQuery</span>
+                        <span class="tag">Looker Studio</span>
+                        <span class="tag">Vertex AI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="dashboard-preview" id="dashboard">
+        <div class="container dashboard-container">
+            <div class="dashboard-text">
+                <h3>Modern HR Dashboard</h3>
+                <p>StafBook provides an intuitive dashboard for HR managers and business leaders to monitor employee attendance, manage approvals, and track team performance in real-time.</p>
+                <p>Our platform simplifies complex HR processes with automated workflows, clear visualizations, and actionable insights - all powered by Google Cloud's reliable infrastructure.</p>
+                <p>From cash advance requests to attendance summaries, StafBook brings all essential HR functions into one cohesive interface.</p>
+                <a href="https://stafbook.tech/" target="_blank" class="cta-button">Try Live Demo</a>
+            </div>
+            <div class="dashboard-image">
+                <!-- 这里插入您提供的第二张图片 -->
+                <img src="main-hres.png" alt="StafBook HR Dashboard Preview">
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Transform Your HR with Google Cloud?</h2>
+            <p>Join hundreds of businesses in Indonesia and beyond that trust StafBook for their HR digital transformation. Experience the power of Google Cloud-integrated HR management.</p>
+            <div class="cta-buttons">
+                <a href="mailto:fransiskus@stafbook.tech" class="cta-button">Contact Our Team</a>
+                <a href="https://stafbook.tech/" target="_blank" class="cta-button-outline">Visit Website</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">SB</div>
+                        <div class="footer-logo-text">
+                            <h3>StafBook</h3>
+                        </div>
+                    </div>
+                    <p>A People-First HR Partner that helps businesses simplify HR and empower leaders to build engaged and high-performing teams.</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-globe"></i>
+                            <span>https://stafbook.tech/</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>fransiskus@stafbook.tech</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Indonesia</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#solution">HR Management</a></li>
+                        <li><a href="#solution">Payroll Processing</a></li>
+                        <li><a href="#solution">Attendance Tracking</a></li>
+                        <li><a href="#solution">Employee Engagement</a></li>
+                        <li><a href="#solution">Analytics & Reporting</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Integration</h4>
+                    <ul>
+                        <li><a href="#integration">Google Kubernetes Engine</a></li>
+                        <li><a href="#integration">Cloud SQL & Storage</a></li>
+                        <li><a href="#integration">Google Workspace</a></li>
+                        <li><a href="#integration">BigQuery Analytics</a></li>
+                        <li><a href="#integration">Vertex AI Roadmap</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="https://stafbook.tech/" target="_blank">Website</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 StafBook. All rights reserved. Built with Google Cloud technologies.</p>
+                <p>StafBook is a registered HR solution provider in Indonesia.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add animation to integration cards on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe integration cards
+        document.querySelectorAll('.integration-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
